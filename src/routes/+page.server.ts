@@ -1,18 +1,15 @@
 import type { Actions, PageServerLoad } from './$types';
-import type { Task } from './types';
 
-const tasks: Task[] = []
-
-export const load = (async () => {
+export const load = (async ({ locals }) => {
   return {
-    tasks
+    tasks: locals.appService.getTasks()
   }
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {
-  addTask: async ({ request }) => {
+  addTask: async ({ request, locals }) => {
     const formData = await request.formData();
     const title = formData.get('title') as string;
-    tasks.push({ title, isCompleted: false });
+    await locals.appService.addTask({ id: crypto.randomUUID(), title, isCompleted: false, description: '' });
   }
 };

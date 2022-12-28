@@ -1,28 +1,12 @@
 <script lang="ts">
 	import WorkspaceGroup from './WorkspaceGroup.svelte';
-	import type { LinkItem } from './WorkspaceGroup';
+	import type { WorkspaceListItem } from '../lib/types';
 
-	let linkItems: LinkItem[] = [
-		{
-			name: 'Pitch Meetings Aasdjioji asdjioasdjiasod nkzxcnjzx',
-			href: 'https://google.com',
-			icon: '🚀'
-		},
-		{
-			name: 'End of Year Party',
-			href: 'https://google.com',
-			icon: '🎨'
-		},
-		{
-			name: 'Client Sales',
-			href: 'https://google.com',
-			icon: '📝'
-		}
-	];
+	export let workspaces: WorkspaceListItem[];
 </script>
 
 <nav class="flex flex-col space-y-2">
-	<WorkspaceGroup name="Work" links={linkItems} />
-	<WorkspaceGroup name="Personal" links={linkItems} />
-	<WorkspaceGroup name="College" links={linkItems} />
+	{#each workspaces as workspace}
+		<WorkspaceGroup {workspace} />
+	{/each}
 </nav>

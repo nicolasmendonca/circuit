@@ -1,17 +1,14 @@
 <script lang="ts">
-	import { applyAction, enhance } from '$app/forms';
-	import { invalidateAll } from '$app/navigation';
+	import List from '$lib/components/List.svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-
-	$: tasks = data.tasks;
 </script>
 
-<main class="bg-white p-4 rounded-xl">
+<main class="bg-white p-8 rounded-xl">
 	<header class="flex items-start group">
 		<h1
-			class="truncate group-hover:text-clip group-hover:whitespace-normal group-focus-within:text-clip group-focus-within:whitespace-normal text-4xl font-semibold"
+			class="truncate group-hover:text-clip group-hover:whitespace-normal group-focus-within:text-clip group-focus-within:whitespace-normal text-3xl font-semibold"
 		>
 			Something
 		</h1>
@@ -34,43 +31,5 @@
 
 	<hr class="my-4" />
 
-	<section class="my-4">
-		<h2 class="text-2xl mb-2">Tasks before End of Year</h2>
-
-		<form
-			action="?/addTask"
-			method="post"
-			use:enhance={() => {
-				return async ({ result, form }) => {
-					await applyAction(result);
-					await invalidateAll();
-					const input = form.querySelector('input');
-					form.reset();
-					input?.focus();
-				};
-			}}
-		>
-			<input
-				name="title"
-				type="text"
-				placeholder="New task"
-				class="input mb-2 input-primary w-full max-w-sm"
-				autocomplete="off"
-			/>
-		</form>
-
-		{#each tasks as task}
-			<div class="form-control">
-				<div class="cursor-pointer label font-semibold justify-start space-x-4">
-					<input
-						type="checkbox"
-						checked={task.isCompleted}
-						class="checkbox checkbox-primary"
-						aria-label={task.title}
-					/>
-					<a href="#" class="label-text py-1">{task.title}</a>
-				</div>
-			</div>
-		{/each}
-	</section>
+	<List tasks={data.tasks} />
 </main>

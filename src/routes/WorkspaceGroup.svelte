@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { slide } from 'svelte/transition';
-	import type { LinkItem } from './WorkspaceGroup';
+	import type { WorkspaceListItem } from '$lib/types';
 
-	export let name: string;
-	export let links: LinkItem[];
+	export let workspace: WorkspaceListItem;
 
 	let isExpanded = true;
 </script>
@@ -18,7 +17,7 @@
 		<div class="flex space-x-2">
 			<div class="w-4">🏠</div>
 			<div>
-				{name}
+				{workspace.name}
 			</div>
 		</div>
 		<div class="w-4">
@@ -39,15 +38,15 @@
 	</button>
 	{#if isExpanded}
 		<ul class="py-2" transition:slide>
-			{#each links as link}
+			{#each workspace.projects as project}
 				<li>
 					<a
-						href="#{link.href}"
+						href="/projects/{project.id}"
 						class="py-1 px-4 block hover:bg-gray-300 transition-all box-content active:bg-primary-300"
 					>
 						<div class="flex space-x-2">
-							<div class="w-4">{link.icon}</div>
-							<div class="truncate text-ellipsis">{link.name}</div>
+							<div class="w-4">{project.icon}</div>
+							<div class="truncate text-ellipsis">{project.title}</div>
 						</div></a
 					>
 				</li>

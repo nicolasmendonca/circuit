@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
+	import List from '$lib/components/List.svelte';
 	import type { LayoutData } from './$types';
 	import AddContentBlock from './AddContentBlock.svelte';
 
@@ -7,7 +7,7 @@
 </script>
 
 <div class="flex space-x-4">
-	<section class="bg-white p-8 rounded-xl w-full">
+	<section class="bg-white p-8 rounded-xl">
 		<header class="flex items-start group">
 			<h1
 				class="truncate group-hover:text-clip group-hover:whitespace-normal group-focus-within:text-clip group-focus-within:whitespace-normal text-3xl font-semibold"
@@ -36,14 +36,18 @@
 
 		{#each data.project.contentBlocks as contentBlock}
 			{#if contentBlock.type == 'text'}
-				<p>{contentBlock.content}</p>
+				<p class="whitespace-pre-wrap">{contentBlock.content}</p>
+			{:else if contentBlock.type == 'list'}
+				<ul class="list-disc list-inside">
+					<List {contentBlock} workspaceId={data.workspace.id} projectId={data.project.id} />
+				</ul>
 			{/if}
 		{/each}
 
 		<AddContentBlock />
 	</section>
 
-	<main class="flex-grow">
+	<main class="flex-grow pr-4">
 		<slot />
 	</main>
 </div>

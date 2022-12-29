@@ -1,8 +1,7 @@
-import type { Id, ProjectDetails, TaskDetails, WorkspaceDetails } from '$lib/types';
+import type { Id, ListContentBlock, ProjectDetails, TaskDetails, WorkspaceDetails } from '$lib/types';
 import type { IAppService } from './types';
 
 export class LocalService implements IAppService {
-  private tasks: TaskDetails[] = [];
   private workspaces: Array<Omit<WorkspaceDetails, 'projects'> & { projectIds: string[] }> = [
     {
       id: '1',
@@ -46,9 +45,26 @@ export class LocalService implements IAppService {
     });
   }
 
+  getWorkspace: IAppService['getWorkspace'] = async (workspaceId) => {
+    return this.getWorkspaces().then(workspaces => {
+      const workspace = workspaces.find(workspace => workspace.id === workspaceId)
+      if (!workspace) throw new Error('Workspace not found')
+      return workspace
+    })
+  }
+
+  createProject: IAppService['createProject'] = async (workspaceId, project) => {
+    this.projects.push({...project, contentBlockIds: []})
+    this.workspaces.find(workspace => workspace.id === workspaceId)?.projectIds.push(project.id)
+  }
+
   getProject: IAppService['getProject'] = async ( id: Id ) => {
     const project = this.projects.find(project => project.id === id)
     if (!project) throw new Error('Project not found')
+    console.log({
+      contentBlocks: this.contentBlocks,
+      project,
+    })
     return {
       ...project,
       contentBlocks: project.contentBlockIds.map(contentBlockId => {
@@ -59,20 +75,30 @@ export class LocalService implements IAppService {
     }
   };
 
-  addTask: IAppService['addTask'] = async (task) => {
-    this.tasks.push(task);
+  createContentBlock: IAppService['createContentBlock'] = async (workspaceId, projectId, contentBlock) => {
+    this.contentBlocks.push(contentBlock)
+    this.projects.find(project => project.id === projectId)?.contentBlockIds.push(contentBlock.id)
   }
 
-  getTasks: IAppService['getTasks'] = async () => this.tasks
-
-  getTask: IAppService['getTask'] = async (id) => {
-    const task = this.tasks.find((task) => task.id === id)
+  getTask: IAppService['getTask'] = async (workspaceId, projectId, listId, taskId) => {
+    const block = this.contentBlocks.find((block) => block.type ==='list' && block.id === listId);
+    if (!block) throw new Error('List not found')
+    const listBlock = block as ListContentBlock
+    const task = listBlock.items.find(item => item.id === taskId)
     if (!task) throw new Error('Task not found')
-    return task
+    return task as TaskDetails
   }
-  
-  updateTask: IAppService['updateTask'] = async (task) => {
-    const taskIndex = this.tasks.findIndex((taskItem) => taskItem.id === task.id)
-    this.tasks.splice(taskIndex, 1, task)
+
+  upsertTask: IAppService['upsertTask'] = async (workspaceId, projectId, listId, taskId, task) => {
+    const block = this.contentBlocks.find((block) => block.type ==='list' && block.id === listId);
+    if (!block) throw new Error('List not found')
+    const listBlock = block as ListContentBlock
+    const itemIndex = listBlock.items.findIndex(item => item.id === taskId)
+
+    if (itemIndex > -1) {
+      listBlock.items.splice(itemIndex, 1, task)
+    } else {
+      listBlock.items.push(task)
+    }
   }
 }

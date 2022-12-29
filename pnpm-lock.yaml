@@ -24,8 +24,12 @@ specifiers:
   tailwindcss: ^3.1.5
   tslib: ^2.4.1
   typescript: ^4.9.3
+  unicode-emoji: ^2.4.0
   vite: ^4.0.0
   vitest: ^0.25.3
+
+dependencies:
+  unicode-emoji: 2.4.0
 
 devDependencies:
   '@fontsource/fira-mono': 4.5.10
@@ -2128,6 +2132,10 @@ packages:
     dependencies:
       busboy: 1.6.0
     dev: true
+
+  /unicode-emoji/2.4.0:
+    resolution: {integrity: sha512-hm02dAntJJPL06gCyj7RM5qzyIXJJr4buSs+Z65ZFhL6D7/anbgG9JKCemJpcVRone95w0jPyGDA+3abJvHVIw==}
+    dev: false
 
   /update-browserslist-db/1.0.10_browserslist@4.21.4:
     resolution: {integrity: sha512-OztqDenkfFkbSG+tRxBeAnCVPckDBcvibKd35yDONx6OU8N7sqgwc7rCbkJ/WcYtVRZ4ba68d6byhC21GFh7sQ==}

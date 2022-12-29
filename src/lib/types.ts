@@ -19,11 +19,19 @@ export type ProjectDetails = ProjectListItem & {
   contentBlocks: ContentBlock[]
 }
 
-export type ContentBlock = TextContentBlock
+export type ContentBlock = TextContentBlock | ListContentBlock
 
-type TextContentBlock = WithId & {
+export type TextContentBlock = WithId & {
   // This will be replaced by https://lexical.dev/ in the future
   type: 'text',
   content: string
 }
+
+export type ListContentBlock = WithId & {
+  type: 'list',
+  title: string;
+  items: TaskListItem[]
+}
+
+export type BlockType = 'text' | 'list';
 

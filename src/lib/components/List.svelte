@@ -57,7 +57,7 @@
 			name="title"
 			type="text"
 			placeholder="New task"
-			class="input bg-gray-100 mb-2 w-full max-w-sm"
+			class="input mb-2 w-full max-w-sm"
 			autocomplete="off"
 		/>
 	</form>

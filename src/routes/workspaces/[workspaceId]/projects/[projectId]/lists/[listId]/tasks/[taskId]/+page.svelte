@@ -8,7 +8,7 @@
 	$: task = data.task;
 </script>
 
-<main class="bg-white p-8 rounded-xl">
+<main class="bg-base-100 p-8 rounded-xl">
 	<header class="flex items-center space-x-4">
 		<h3 class="text-2xl font-semibold">{task.title}</h3>
 		<form class="dropdown" method="POST" use:enhance>

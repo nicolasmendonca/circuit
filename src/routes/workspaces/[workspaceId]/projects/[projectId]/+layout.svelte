@@ -7,7 +7,7 @@
 </script>
 
 <div class="flex space-x-4">
-	<section class="bg-white p-8 rounded-xl">
+	<section class="bg-base-100 p-8 rounded-xl">
 		<header class="flex items-start group">
 			<h1
 				class="truncate group-hover:text-clip group-hover:whitespace-normal group-focus-within:text-clip group-focus-within:whitespace-normal text-3xl font-semibold"

@@ -38,7 +38,7 @@
 		type="text"
 		name="title"
 		placeholder="Task list title"
-		class="input block bg-gray-100 w-full max-w-xs"
+		class="input block w-full max-w-xs"
 		autofocus
 	/>
 	{#each tasks as task (task.id)}

@@ -6,7 +6,7 @@
 	export let data: LayoutData;
 </script>
 
-<div class="relative bg-gray-100">
+<div class="relative bg-base-300">
 	<div class="fixed w-60 left-2 top-6">
 		<Sidebar workspaces={data.workspaces} />
 	</div>

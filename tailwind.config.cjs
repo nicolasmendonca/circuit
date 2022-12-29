@@ -15,16 +15,7 @@ const config = {
 	},
 
 	plugins: [daisyui],
-	daisyui: {
-		themes: [
-			{
-				myTheme: {
-					...require('daisyui/src/colors/themes')['[data-theme=light]'],
-					primary: primary[600]
-				}
-			}
-		]
-	}
+	daisyui: {}
 };
 
 module.exports = config;

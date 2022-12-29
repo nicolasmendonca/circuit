@@ -7,7 +7,7 @@
 	let isExpanded = true;
 </script>
 
-<section class="bg-primary-300 rounded-xl py-4">
+<section class="border border-neutral bg-base-100 rounded-xl py-4">
 	<button
 		class="px-4 font-bold flex justify-between items-center w-full"
 		on:click={() => {
@@ -42,11 +42,11 @@
 				<li>
 					<a
 						href="/workspaces/{workspace.id}/projects/{project.id}"
-						class="py-1 px-4 block hover:bg-primary-400 transition-all box-content active:bg-primary-300"
+						class="py-1 px-4 block transition-all text-primary-content"
 					>
 						<div class="flex space-x-2">
 							<div class="w-4">{project.icon}</div>
-							<div class="truncate text-ellipsis">{project.title}</div>
+							<div class="truncate text-ellipsis link link-secondary">{project.title}</div>
 						</div></a
 					>
 				</li>

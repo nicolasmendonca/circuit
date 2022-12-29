@@ -61,10 +61,6 @@ export class LocalService implements IAppService {
   getProject: IAppService['getProject'] = async ( id: Id ) => {
     const project = this.projects.find(project => project.id === id)
     if (!project) throw new Error('Project not found')
-    console.log({
-      contentBlocks: this.contentBlocks,
-      project,
-    })
     return {
       ...project,
       contentBlocks: project.contentBlockIds.map(contentBlockId => {

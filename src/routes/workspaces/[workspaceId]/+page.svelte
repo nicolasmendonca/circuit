@@ -19,7 +19,7 @@
 			{#each data.workspace.projects as project}
 				<li>
 					<a
-						href={`/workspaces/{data.workspace.id}/projects/${project.id}`}
+						href="/workspaces/{data.workspace.id}/projects/{project.id}"
 						class="link-primary flex items-center space-x-2"
 					>
 						<div>
